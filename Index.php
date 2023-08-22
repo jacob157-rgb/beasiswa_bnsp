@@ -25,51 +25,51 @@
             <!-- Pills content -->
             <div class="tab-content">
                 <div class="signin">
-                    <form action="private/auth.php?actiom=signin" method="post">
+                    <form action="private/auth.php?action=signin" method="post">
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="loginName">Email</label>
-                            <input type="email" id="loginemail" class="form-control" required />
+                            <input type="email" id="loginemail" class="form-control" name="loginEmail" required />
                         </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="loginPassword">Password</label>
-                            <input type="password" id="loginPassword" class="form-control" required />
+                            <input type="password" id="loginPassword" class="form-control" name="loginPassword" required />
                         </div>
 
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary btn-block mb-2">Sign in</button>
+                        <button type="submit" class="btn btn-primary btn-block mb-2" name="signinSubmit">Sign in</button>
                     </form>
                 </div>
                 <div class="signup d-none">
-                    <form action="private/auth.php?action=signup" method="post">
+                    <form action="private/auth.php?action=signup" method="post" name="signupForm" onsubmit="return validatePassword();">
                         <!-- Name input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="registerName">Name</label>
-                            <input type="text" id="registerName" class="form-control" required />
+                            <input type="text" id="registerName" class="form-control" name="registerName" required />
                         </div>
 
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="registerEmail">Email</label>
-                            <input type="email" id="registerEmail" class="form-control" required />
+                            <input type="email" id="registerEmail" class="form-control" name="registerEmail" required />
                         </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="registerPassword">Password</label>
-                            <input type="password" id="registerPassword" class="form-control" required />
+                            <input type="password" id="registerPassword" class="form-control" name="registerPassword" required />
                         </div>
 
                         <!-- Repeat Password input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="registerRepeatPassword">Repeat password</label>
-                            <input type="password" id="registerRepeatPassword" class="form-control" required />
+                            <input type="password" id="registerRepeatPassword" class="form-control" name="registerRepeatPassword" required />
                         </div>
 
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary btn-block mb-2">Sign Up</button>
+                        <button type="submit" class="btn btn-primary btn-block mb-2" name="signupSubmit">Sign Up</button>
                     </form>
                 </div>
             </div>
