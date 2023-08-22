@@ -13,3 +13,22 @@ $(document).ready(function() {
         $('.tab-content > div').not('.' + target).addClass('d-none');
     });
 });
+
+function validatePassword() {
+    const password = document.getElementById("registerPassword").value;
+    const repeatPassword = document.getElementById("registerRepeatPassword").value;
+    
+    if (password !== repeatPassword) {
+        alert("Passwords do not match. Please make sure passwords match.");
+        return false;
+    }
+    return true;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector("form[name='signupForm']").addEventListener("submit", function(event) {
+        if (!validatePassword()) {
+            event.preventDefault();
+        }
+    });
+});

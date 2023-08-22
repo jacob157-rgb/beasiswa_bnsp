@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action'])) {
     // Proses login
@@ -11,17 +20,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action'])) {
         echo "Sign In successful!";
     }
     // Proses pendaftaran
-    if ($_GET['action'] === 'signup' && isset($_POST['registerName'], $_POST['registerEmail'], $_POST['registerPassword'])) {
+    if ($_GET['action'] === 'signup' && isset($_POST['registerName'], $_POST['registerEmail'], $_POST['registerPassword'], $_POST['registerRepeatPassword'])) {
         $name = $_POST['registerName'];
         $email = $_POST['registerEmail'];
         $password = $_POST['registerPassword'];
         $rptpassword = $_POST['registerRepeatPassword'];
 
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+        require_once "db_conn.php";
+        $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+        $stmt = mysqli_stmt_init($conn);
+        $prepareStmt = mysqli_stmt_prepare($stmt,$sql);
+        if ($prepareStmt){
+            mysqli_stmt_bind_param($stmt, "sss", $name, $email, $passwordHash);
+            mysqli_stmt_execute($stmt);
+            echo '<div class="alert alert-success" role="alert">Sign Up Success!</div>';
+        }else{
+            die('<div class="alert alert-danger" role="alert">Something Went Wrong!</div>');
+        }
         // Lakukan proses pendaftaran, seperti menyimpan data ke basis data
         // ...
-        if ($password === $rptpassword){
-            echo "Sign Up successful!";
-        }
     }
 }
 ?>
+    <script src="js/jquery-3.7.0.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
