@@ -1,7 +1,21 @@
 <?php
 $title = 'Daftar';
 $page = 'daftar';
-include_once("php/navbar.php")
+include_once("php/navbar.php");
+include("private/db_conn.php");
+
+
+$name = $_POST['beasiswaName'];
+$email = $_POST['beasiswaEmail'];
+$nohp = $_POST['beasiswaNoHP'];
+$sem = $_POST['semester'];
+$ipk = $_POST['ipk'];
+$jenisBeasiswa = $_POST['jenisBeasiswa'];
+$statusAjuan = 'Belum diverifikasi'; // Default status
+$targetDir = "uploads/";
+$berkasPath = $targetDir . basename($_FILES['berkas']['name']);
+move_uploaded_file($_FILES['berkas']['tmp_name'], $berkasPath);
+
 ?>
 
 <main>
@@ -20,7 +34,7 @@ include_once("php/navbar.php")
                         <p>Masukan Nama : </p>
                     </div>
                     <div class="col-8">
-                        <input type="text" id="registerName" class="form-control" name="registerName" required />
+                        <input type="text" id="beasiswaName" class="form-control" name="registerName" required />
                     </div>
                 </div>
                 <div class="row py-2">
@@ -28,7 +42,7 @@ include_once("php/navbar.php")
                         <p>Masukan Email : </p>
                     </div>
                     <div class="col-8">
-                        <input type="email" id="registerName" class="form-control" name="registerName" required />
+                        <input type="email" id="beasiswaName" class="form-control" name="registerName" required />
                     </div>
                 </div>
                 <div class="row py-2">
@@ -36,7 +50,7 @@ include_once("php/navbar.php")
                         <p>Nomor HP : </p>
                     </div>
                     <div class="col-8">
-                        <input type="number" id="registerName" class="form-control" name="registerName" required />
+                        <input type="number" id="beasiswaNoHP" class="form-control" name="registerName" required />
                     </div>
                 </div>
                 <div class="row py-2">
@@ -44,16 +58,16 @@ include_once("php/navbar.php")
                         <p>Semester saat ini : </p>
                     </div>
                     <div class="col-8">
-                        <select class="form-select" id="" required>
+                        <select class="form-select" id="semester" required>
                             <option value="">Pilih</option>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                            <option value="">4</option>
-                            <option value="">5</option>
-                            <option value="">6</option>
-                            <option value="">7</option>
-                            <option value="">8</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
                         </select>
                     </div>
                 </div>
@@ -62,7 +76,7 @@ include_once("php/navbar.php")
                         <p>IPK Terakhir : </p>
                     </div>
                     <div class="col-8">
-                        <input class="form-control" type="number" placeholder="3.4" aria-label="Disabled input example"
+                        <input class="form-control" id="ipk" type="number" placeholder="<?php echo $ipk; ?>" aria-label="Disabled input example"
                             disabled>
                     </div>
                 </div>
@@ -71,10 +85,10 @@ include_once("php/navbar.php")
                         <p>Pilihan Beasiswa : </p>
                     </div>
                     <div class="col-8">
-                        <select class="form-select" id="" required>
+                        <select class="form-select" id="jenisBeasiswa" required>
                             <option value="">Pilih Beasiswa</option>
-                            <option value="">Akademik</option>
-                            <option value="">Non Akademik</option>
+                            <option value="Akademik">Akademik</option>
+                            <option value="Non Akademi">Non Akademik</option>
                         </select>
                     </div>
                 </div>
