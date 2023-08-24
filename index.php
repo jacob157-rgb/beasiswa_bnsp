@@ -22,6 +22,9 @@ if (isset($_POST["signinSubmit"])) {
         $loginEmail = htmlspecialchars($_POST['loginEmail']);
         $loginPassword = htmlspecialchars($_POST['loginPassword']);
 
+        session_start();
+        $_SESSION["email"]=$loginEmail;
+
         $query = "SELECT * FROM users WHERE email = '$loginEmail' AND password = '$loginPassword'";
         $result = mysqli_query($conn, $query);
 

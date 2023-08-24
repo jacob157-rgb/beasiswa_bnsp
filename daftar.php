@@ -34,7 +34,14 @@ if (isset($_POST["daftar"])) {
 
     mysqli_close($conn);
 }
-
+session_start();
+$Email = $_SESSION["email"];
+$query = "SELECT ipk FROM users WHERE email = '$Email'";
+$result = mysqli_query($conn, $query);
+if($result){
+    $row = mysqli_fetch_assoc($result);
+    $ipk = $row["ipk"];
+}
 ?>
 
 
@@ -96,8 +103,7 @@ if (isset($_POST["daftar"])) {
                         <p>IPK Terakhir : </p>
                     </div>
                     <div class="col-8">
-                        <input class="form-control" name="ipk" type="text" value="340" 
-                           >
+                        <input class="form-control" name="ipk" type="text" value="<?= $ipk;?>" readonly>
                     </div>
                 </div>
                 <div class="row py-2">
@@ -105,10 +111,34 @@ if (isset($_POST["daftar"])) {
                         <p>Pilihan Beasiswa : </p>
                     </div>
                     <div class="col-8">
-                        <select name="jenis_beasiswa" class="form-select" id="" required>
+                        <?php
+                        if($ipk<3){
+                            echo '<select name="jenis_beasiswa" class="form-select" id="" required disabled>
                             <option value="">Pilih Beasiswa</option>
                             <option value="Akademik">Akademik</option>
-                            <option value="NonAkademik">Non Akademik</option>
+                            <option value="Non_Akademik">Non Akademik</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col text-start">
+                        <p>Upload Berkas Syarat : </p>
+                    </div>
+                    <div class="col-8">
+                        <input name="berkas" class="form-control" type="file" id="formFile" Accept="Application/Pdf" required disabled>
+                    </div>
+                </div>
+                <div class="row pt-4">
+                    <div class="col">
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button type="submit" name="daftar" class="btn btn-primary" disabled>Daftar</button>
+                        </div>
+                    </div>';
+                        }else{
+                            echo '<select name="jenis_beasiswa" class="form-select" id="" required>
+                            <option value="">Pilih Beasiswa</option>
+                            <option value="Akademik">Akademik</option>
+                            <option value="Non_Akademik">Non Akademik</option>
                         </select>
                     </div>
                 </div>
@@ -125,7 +155,9 @@ if (isset($_POST["daftar"])) {
                         <div class="d-grid gap-2 col-6 mx-auto">
                             <button type="submit" name="daftar" class="btn btn-primary">Daftar</button>
                         </div>
-                    </div>
+                    </div>';
+                        }
+                        ?>
                     <div class="col">
                         <div class="d-grid gap-2 col-6 mx-auto">
                             <button type="reset" class="btn btn-secondary">Batal</button>

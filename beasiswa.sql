@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 24, 2023 at 07:13 AM
+-- Generation Time: Aug 24, 2023 at 08:27 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.9
 
@@ -34,10 +34,17 @@ CREATE TABLE `data_beasiswa` (
   `nohp` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `sem` int NOT NULL,
   `ipk` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
-  `jenis_beasiswa` enum('Akademik','Non Akademik') COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_beasiswa` enum('Akademik','Non_Akademik') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `berkas` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `status_ajuan` enum('Belum di verifikasi','Sudah diverifikasi') COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `data_beasiswa`
+--
+
+INSERT INTO `data_beasiswa` (`id`, `name`, `email`, `nohp`, `sem`, `ipk`, `jenis_beasiswa`, `berkas`, `status_ajuan`) VALUES
+(3, 'Admin', 'admin@mail.com', '123412341234', 8, '3.40', 'Akademik', 'pdf.pdf', 'Belum di verifikasi');
 
 -- --------------------------------------------------------
 
@@ -49,8 +56,17 @@ CREATE TABLE `users` (
   `id` int NOT NULL,
   `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `ipk` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '3.40'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `ipk`) VALUES
+(9, 'Jacob Jockey Saputra', 'jacobjokey@gmail.com', '123', '3.40'),
+(10, 'Adni', 'adni@gmail.com', '123', '2.90');
 
 --
 -- Indexes for dumped tables
@@ -76,13 +92,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `data_beasiswa`
 --
 ALTER TABLE `data_beasiswa`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
