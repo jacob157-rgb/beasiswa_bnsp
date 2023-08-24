@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 24, 2023 at 07:10 AM
+-- Generation Time: Aug 24, 2023 at 07:13 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.9
 
@@ -39,14 +39,6 @@ CREATE TABLE `data_beasiswa` (
   `status_ajuan` enum('Belum di verifikasi','Sudah diverifikasi') COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `data_beasiswa`
---
-
-INSERT INTO `data_beasiswa` (`id`, `name`, `email`, `nohp`, `sem`, `ipk`, `jenis_beasiswa`, `berkas`, `status_ajuan`) VALUES
-(1, 'ad', 'jacobjokey@gmail.com', '123412341234', 4, '340', 'Akademik', 'pdf.pdf', 'Belum di verifikasi'),
-(2, 'ad', 'jacobjokey@gmail.com', '123412341234', 4, '340', 'Akademik', 'pdf.pdf', 'Belum di verifikasi');
-
 -- --------------------------------------------------------
 
 --
@@ -59,13 +51,6 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
-(8, 'Admin', 'admin@mail.com', '$2y$10$EmaUuTMyxNRpkNpic1uk1O.a0JoQwe.7QgRyXP3Rprd0HQNVPVojq');
 
 --
 -- Indexes for dumped tables
