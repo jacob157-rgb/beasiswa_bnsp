@@ -3,41 +3,38 @@ $title = 'Daftar';
 $page = 'daftar';
 include_once("php/navbar.php");
 include "./private/db_conn.php";
-
 if (isset($_POST["daftar"])) {
     $Nama = htmlspecialchars($_POST['Nama']);
     $Email = htmlspecialchars($_POST['Email']);
     $noHp = htmlspecialchars($_POST['noHp']);
     $semester = htmlspecialchars($_POST['semester']);
-    $ipk = isset($_POST['ipk']) ? htmlspecialchars($_POST['ipk']) : ''; 
+    $ipk = $_POST['ipk']; 
     $jenis_beasiswa = htmlspecialchars($_POST['jenis_beasiswa']);
-    $status = isset($_POST['status']) ? $_POST['status'] : 'Belum'; 
+    
+    $berkas_name = $_FILES['berkas']['name'];
+    $berkas_tmp = $_FILES['berkas']['tmp_name'];
+    $berkas_size = $_FILES['berkas']['size'];
+    $berkas_error = $_FILES['berkas']['error'];
 
-    $ekstensiFail = array('pdf', 'docx');
-    $berkas = $_FILES['berkas']['name'];
-    $x = explode('.', $berkas);
-    $ekstensi = strtolower(end($x));
-    $ukuran = $_FILES['berkas']['size'];
-    $file_tmp = $_FILES['berkas']['tmp_name'];
-
-    if (in_array($ekstensi, $ekstensiFail) && $ukuran < 1044070) {
-        $uploadPath = './src/upload/' . $berkas;
-        if (move_uploaded_file($file_tmp, $uploadPath)) {
-            $query = "INSERT INTO data_beasiswa VALUES ('$Nama', '$Email', '$noHp', '$semester', '$ipk', '$jenis_beasiswa', '$berkas', '$status')";
+    if ($berkas_error === 0) {
+        $berkas_destination = 'src/upload/' . $berkas_name;
+        if (move_uploaded_file($berkas_tmp, $berkas_destination)) {
+            $query = "INSERT INTO data_beasiswa (name, email, nohp, sem, ipk, jenis_beasiswa, berkas) VALUES ('$Nama', '$Email', '$noHp', '$semester', '$ipk', '$jenis_beasiswa', '$berkas_name')";
             if (mysqli_query($conn, $query)) {
-                echo '<div class="alert alert-success" role="alert">Success!</div>';
+                echo '<div class="alert alert-success" role="alert">Sign Up Success!</div>';
             } else {
-                echo '<div class="alert alert-danger" role="alert">Database error!</div>';
+                die('<div class="alert alert-danger" role="alert">Something Went Wrong!</div>');
             }
         } else {
-            echo '<div class="alert alert-danger" role="alert">File upload failed!</div>';
+            echo '<div class="alert alert-danger" role="alert">File Upload Failed!</div>';
         }
     } else {
-        echo '<div class="alert alert-danger" role="alert">Invalid file format or size!</div>';
+        echo '<div class="alert alert-danger" role="alert">Error in File Upload: ' . $berkas_error . '</div>';
     }
 
     mysqli_close($conn);
 }
+
 ?>
 
 
@@ -99,8 +96,8 @@ if (isset($_POST["daftar"])) {
                         <p>IPK Terakhir : </p>
                     </div>
                     <div class="col-8">
-                        <input class="form-control" name="ipk" type="number" value="3.4" 
-                            disabled>
+                        <input class="form-control" name="ipk" type="text" value="340" 
+                           >
                     </div>
                 </div>
                 <div class="row py-2">
@@ -131,7 +128,7 @@ if (isset($_POST["daftar"])) {
                     </div>
                     <div class="col">
                         <div class="d-grid gap-2 col-6 mx-auto">
-                            <button type="submit" class="btn btn-secondary">Batal</button>
+                            <button type="reset" class="btn btn-secondary">Batal</button>
                         </div>
                     </div>
                 </div>
