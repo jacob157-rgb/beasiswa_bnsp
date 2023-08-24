@@ -21,9 +21,9 @@ if (isset($_POST["daftar"])) {
         if (move_uploaded_file($berkas_tmp, $berkas_destination)) {
             $query = "INSERT INTO data_beasiswa (name, email, nohp, sem, ipk, jenis_beasiswa, berkas) VALUES ('$Nama', '$Email', '$noHp', '$semester', '$ipk', '$jenis_beasiswa', '$berkas_name')";
             if (mysqli_query($conn, $query)) {
-                echo '<div class="alert alert-success" role="alert">Sign Up Success!</div>';
+                echo '<div class="alert alert-dismissible alert-success" role="alert">Sign Up Success!</div>';
             } else {
-                die('<div class="alert alert-danger" role="alert">Something Went Wrong!</div>');
+                die('<div class="alert alert-dismissible alert-danger" role="alert">Something Went Wrong!</div>');
             }
         } else {
             echo '<div class="alert alert-danger" role="alert">File Upload Failed!</div>';

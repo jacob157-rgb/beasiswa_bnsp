@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Aug 24, 2023 at 05:28 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Host: localhost:3306
+-- Generation Time: Aug 24, 2023 at 07:06 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,16 +28,24 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `data_beasiswa` (
-  `id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `nohp` int(20) NOT NULL,
-  `sem` int(1) NOT NULL,
-  `ipk` decimal(3,2) NOT NULL,
-  `jenis_beasiswa` enum('Akademik','Non Akademik') NOT NULL,
-  `berkas` varchar(255) NOT NULL,
-  `status_ajuan` enum('Belum di verifikasi','Sudah diverifikasi') NOT NULL
+  `id` int NOT NULL,
+  `name` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `nohp` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `sem` int NOT NULL,
+  `ipk` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_beasiswa` enum('Akademik','Non Akademik') COLLATE utf8mb4_general_ci NOT NULL,
+  `berkas` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `status_ajuan` enum('Belum di verifikasi','Sudah diverifikasi') COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `data_beasiswa`
+--
+
+INSERT INTO `data_beasiswa` (`id`, `name`, `email`, `nohp`, `sem`, `ipk`, `jenis_beasiswa`, `berkas`, `status_ajuan`) VALUES
+(1, 'ad', 'jacobjokey@gmail.com', '123412341234', 4, '340', 'Akademik', 'pdf.pdf', 'Belum di verifikasi'),
+(2, 'ad', 'jacobjokey@gmail.com', '123412341234', 4, '340', 'Akademik', 'pdf.pdf', 'Belum di verifikasi');
 
 -- --------------------------------------------------------
 
@@ -46,18 +54,18 @@ CREATE TABLE `data_beasiswa` (
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL,
+  `id` int NOT NULL,
+  `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
-(2, 'Admin', 'admin@mail.com', '12');
+(8, 'Admin', 'admin@mail.com', '$2y$10$EmaUuTMyxNRpkNpic1uk1O.a0JoQwe.7QgRyXP3Rprd0HQNVPVojq');
 
 --
 -- Indexes for dumped tables
@@ -83,13 +91,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `data_beasiswa`
 --
 ALTER TABLE `data_beasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
