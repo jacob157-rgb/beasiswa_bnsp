@@ -1,3 +1,44 @@
+<?php
+include "./private/db_conn.php";
+if (isset($_POST["signupSubmit"])) {
+    if (!empty($_POST['registerName']) && !empty($_POST['registerEmail']) && !empty($_POST['registerPassword']) && !empty($_POST['registerRepeatPassword'])) {
+        $registerName = htmlspecialchars($_POST['registerName']);
+        $registerEmail = htmlspecialchars($_POST['registerEmail']);
+        $registerPassword = htmlspecialchars($_POST['registerPassword']);
+        $registerRepeatPassword = htmlspecialchars($_POST['registerRepeatPassword']);
+
+        $query = "INSERT INTO users (name, email, password) VALUES ('$registerName', '$registerEmail', '$registerPassword')";
+        if (mysqli_query($conn, $query)) {
+            echo '<div class="alert alert-success" role="alert">Sign Up Success!</div>';
+        } else {
+            die('<div class="alert alert-danger" role="alert">Something Went Wrong!</div>');
+        }
+        mysqli_close($conn);
+    }
+}
+
+if (isset($_POST["signinSubmit"])) {
+    if (!empty($_POST['loginEmail']) && !empty($_POST['loginPassword'])) {
+        $loginEmail = htmlspecialchars($_POST['loginEmail']);
+        $loginPassword = htmlspecialchars($_POST['loginPassword']);
+
+        $query = "SELECT * FROM users WHERE email = '$loginEmail' AND password = '$loginPassword'";
+        $result = mysqli_query($conn, $query);
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            $user = mysqli_fetch_assoc($result);
+            echo '<div class="alert alert-success" role="alert">Login Successful!</div>';
+            echo '<script>window.location.href = "daftar.php";</script>';
+        } else {
+            echo '<div class="alert alert-danger" role="alert">Invalid Email or Password!</div>';
+        }
+
+        mysqli_close($conn);
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +67,7 @@
             <!-- Pills content -->
             <div class="tab-content">
                 <div class="signin">
-                    <form action="private/auth.php?action=signin" method="post">
+                    <form action="" method="post">
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="loginName">Email</label>
@@ -44,7 +85,7 @@
                     </form>
                 </div>
                 <div class="signup d-none">
-                    <form action="private/auth.php?action=signup" method="post" name="signupForm" onsubmit="return validatePassword();">
+                    <form action="" method="post" name="signupForm" onsubmit="return validatePassword();">
                         <!-- Name input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="registerName">Name</label>

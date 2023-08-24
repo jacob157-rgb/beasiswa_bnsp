@@ -8,6 +8,13 @@
 </head>
 <body>
 <?php
+
+if(isset($_POST['signupSubmit'])) {
+    echo '<script<meta http-equiv="refresh" content="3; home.html"></script>';
+
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action'])) {
     // Proses login
     if ($_GET['action'] === 'signin' && isset($_POST['loginName'], $_POST['loginPassword'])) {
@@ -36,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action'])) {
             mysqli_stmt_bind_param($stmt, "sss", $name, $email, $passwordHash);
             mysqli_stmt_execute($stmt);
             echo '<div class="alert alert-success" role="alert">Sign Up Success!</div>';
+            // echo '<script<meta http-equiv="refresh" content="3; home.html"></script>';
         }else{
             die('<div class="alert alert-danger" role="alert">Something Went Wrong!</div>');
         }
